@@ -5,7 +5,7 @@
 
 typedef vector<vector<int>> Graph; // Adjacency Matrix
 
-Graph multiSourceShortestPaths(Graph g)
+Graph allPairShortestDistance(Graph g)
 {
     int v = g.size();
     for (int via = 0; via < v; via++)
@@ -48,7 +48,7 @@ int main()
         {INF, 3, 0, INF, 1},
         {INF, 1, INF, 0, INF},
         {INF, 1, INF, INF, 0}};
-    auto cost = multiSourceShortestPaths(g);
+    auto cost = allPairShortestDistance(g);
     printMatrix(cost);
 
     return 0;
