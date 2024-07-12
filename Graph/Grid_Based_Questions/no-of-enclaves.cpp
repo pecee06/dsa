@@ -1,3 +1,5 @@
+// An enclave is a 1 from where you can't cross boundry of the grid
+
 #include <iostream>
 #include <vector>
 #include <queue>
@@ -33,35 +35,41 @@ void bfs(Graph &g, int &count, queue<PII> &q, int delRow[4], int delCol[4])
 
 int countEnclaves(Graph g)
 {
-    int count = 0;
+    int count = 0, nonBoundryOnes = 0;
     queue<PII> q;
     for (int i = 0; i < g.size(); i++)
     {
         for (int j = 0; j < g[0].size(); j++)
         {
-            // boundry condition
+            // marking boundry 1s as 2s
             if ((i == 0 || i == g.size() - 1 || j == 0 || j == g[0].size() - 1) && g[i][j])
             {
                 g[i][j] = 2;
-                count++;
                 q.push({i, j});
             }
+            else if (g[i][j])
+                nonBoundryOnes++;
         }
     }
     int delRow[] = {-1, 0, 1, 0};
     int delCol[] = {0, 1, 0, -1};
     bfs(g, count, q, delRow, delCol);
-    return count;
+    return nonBoundryOnes - count;
 }
 
 int main()
 {
+    // Graph g = {
+    //     {0, 0, 0, 1},
+    //     {0, 1, 1, 0},
+    //     {0, 1, 1, 0},
+    //     {0, 0, 0, 1},
+    //     {0, 1, 1, 0}};
     Graph g = {
-        {0, 0, 1, 1},
+        {0, 0, 0, 0},
+        {1, 0, 1, 0},
         {0, 1, 1, 0},
-        {0, 1, 1, 0},
-        {0, 0, 0, 1},
-        {0, 1, 1, 0}};
+        {0, 1, 0, 0}};
     cout << countEnclaves(g);
 
     return 0;

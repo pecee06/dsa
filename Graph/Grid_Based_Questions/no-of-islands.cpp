@@ -1,3 +1,5 @@
+// Group of connected 1s is an island
+
 #include <iostream>
 #include <vector>
 #include <queue>
